@@ -79,6 +79,9 @@ shopping-app/
 │   │       └── static/ or templates/         # Optional static content or templates
 ├── pom.xml
 └── README.md
+---
+
+
 ⚙️ Configuration
 
 Before running the project, open
