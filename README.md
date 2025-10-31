@@ -1,216 +1,381 @@
 # 🛒 Shopping App
 
-A full-featured **Spring Boot** e-commerce backend application that provides **user management**, **authentication**, **product catalog**, **shopping cart**, and **order processing** functionalities.  
-This project demonstrates how to build a secure, modular, and scalable shopping system using **Spring Data JPA**, **Spring Security**, and **JWT (JJWT)**.
+A full-featured Spring Boot e-commerce backend application with secure user authentication, product catalog management, shopping cart functionality, and order processing capabilities.
+
+[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+## 📋 Table of Contents
+
+- [Overview](#-overview)
+- [Features](#-features)
+- [Technology Stack](#-technology-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Running the Application](#running-the-application)
+- [API Endpoints](#-api-endpoints)
+- [Usage Examples](#-usage-examples)
+- [Learning Goals](#-learning-goals)
+- [Future Enhancements](#-future-enhancements)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
 ---
 
 ## 📘 Overview
 
-This Shopping App allows users to:
-- Create a new account and log in securely with JWT authentication.
-- Browse and view products by category.
-- Add, update, or remove items from their shopping cart.
-- Place and manage orders.
-- Store and retrieve data from a MySQL database.
-- Handle secure operations using Spring Security and JJWT.
+The Shopping App is a comprehensive REST API backend built with Spring Boot that powers modern e-commerce experiences. It provides robust user management, secure JWT-based authentication, dynamic product catalogs with categories, fully functional shopping cart operations, and complete order processing workflows.
 
-It’s an excellent example of a cleanly structured **Spring Boot REST API** for online shopping applications.
+This project serves as an excellent reference implementation for building secure, scalable, and maintainable e-commerce systems using industry-standard practices and technologies.
 
----
+### Key Capabilities
 
-## 🚀 Features
-
-✅ User registration and authentication with JWT  
-✅ Product catalog with categories and images  
-✅ Add, remove, or update products in cart  
-✅ Place, view, and manage orders  
-✅ MySQL database integration via JPA/Hibernate  
-✅ Secure endpoints with Spring Security  
-✅ Exception handling and standardized responses  
-✅ DTOs for data transfer and separation from entities  
-✅ Clean, modular architecture following best practices  
+- **User Management**: Secure registration and authentication with JWT tokens
+- **Product Catalog**: Browse products organized by categories with image support
+- **Shopping Cart**: Full CRUD operations for cart management
+- **Order Processing**: Place, track, and manage customer orders
+- **Data Persistence**: Reliable storage with MySQL and Spring Data JPA
+- **Security**: Protected endpoints using Spring Security
 
 ---
 
-## 🛠️ Technologies Used
+## ✨ Features
 
-| Layer | Technology |
-|:------|:------------|
-| **Language** | Java |
-| **Framework** | Spring Boot |
-| **Security** | Spring Security + JWT (io.jsonwebtoken JJWT) |
-| **Database** | MySQL |
+- ✅ **JWT Authentication** - Secure token-based user authentication and authorization
+- ✅ **User Registration & Login** - Complete user account management system
+- ✅ **Product Management** - CRUD operations for products with category organization
+- ✅ **Image Handling** - Product image upload and management
+- ✅ **Shopping Cart** - Add, update, remove items with quantity management
+- ✅ **Order System** - Place orders, view history, and track order status
+- ✅ **MySQL Integration** - Persistent data storage with JPA/Hibernate
+- ✅ **RESTful API** - Clean, standardized REST endpoints
+- ✅ **Exception Handling** - Global exception handling with meaningful responses
+- ✅ **DTO Pattern** - Separation of concerns using Data Transfer Objects
+- ✅ **Modular Architecture** - Clean code organization following best practices
+
+---
+
+## 🛠️ Technology Stack
+
+| Component | Technology |
+|-----------|------------|
+| **Language** | Java 17+ |
+| **Framework** | Spring Boot 3.x |
+| **Security** | Spring Security + JWT (JJWT) |
+| **Database** | MySQL 8.0+ |
 | **ORM** | Spring Data JPA (Hibernate) |
-| **Utility** | Lombok |
 | **Build Tool** | Maven |
-| **Version Control** | Git & GitHub |
+| **Utilities** | Lombok |
+| **Version Control** | Git |
 
 ---
 
 ## 📂 Project Structure
 
-```yaml
+```
 shopping-app/
-├── src/
-│   ├── main/
-│   │   ├── java/com/backendProject/shoppingApp/
-│   │   │   ├── cart/             # Cart entity and related business logic
-│   │   │   ├── cartItem/         # Items added to the cart
-│   │   │   ├── category/         # Product categories and category management
-│   │   │   ├── image/            # Image model and utilities for product images
-│   │   │   ├── order/            # Order entity and order management logic
-│   │   │   ├── orderItem/        # Items within a placed order
-│   │   │   ├── product/          # Product entity, service, and controller
-│   │   │   ├── user/             # User entity, registration, and authentication
-│   │   │   ├── controller/       # REST controllers (user, product, cart, order)
-│   │   │   ├── dto/              # Data Transfer Objects for API communication
-│   │   │   ├── enums/            # Application enums (roles, statuses, etc.)
-│   │   │   ├── exception/        # Custom exceptions and global exception handling
-│   │   │   ├── model/            # Common domain models shared between modules
-│   │   │   ├── repository/       # Spring Data JPA repositories
-│   │   │   ├── response/         # Standardized API responses
-│   │   │   ├── security/         # JWT configuration, filters, authentication manager
-│   │   │   ├── service/          # Business services (UserService, ProductService, etc.)
-│   │   │   ├── utils/            # Helper and utility classes
-│   │   │   └── ShopingAppApplication.java   # Main Spring Boot application class
-│   │   └── resources/
-│   │       ├── application.properties        # App configuration (DB, JWT, etc.)
-│   │       └── static/ or templates/         # Optional static content or templates
-├── pom.xml
+│
+├── src/main/java/com/backendProject/shoppingApp/
+│   ├── cart/                    # Shopping cart domain
+│   ├── cartItem/                # Cart item entities and logic
+│   ├── category/                # Product category management
+│   ├── image/                   # Product image handling
+│   ├── order/                   # Order processing
+│   ├── orderItem/               # Order line items
+│   ├── product/                 # Product management
+│   ├── user/                    # User management
+│   ├── controller/              # REST API controllers
+│   ├── dto/                     # Data Transfer Objects
+│   ├── enums/                   # Application enumerations
+│   ├── exception/               # Exception handling
+│   ├── repository/              # JPA repositories
+│   ├── response/                # API response models
+│   ├── security/                # Security configuration
+│   ├── service/                 # Business logic layer
+│   ├── utils/                   # Utility classes
+│   └── ShoppingAppApplication.java
+│
+├── src/main/resources/
+│   ├── application.properties   # Application configuration
+│   └── static/                  # Static resources (optional)
+│
+├── pom.xml                      # Maven dependencies
 └── README.md
+```
+
 ---
 
+## 🚀 Getting Started
 
-⚙️ Configuration
+### Prerequisites
 
-Before running the project, open
-src/main/resources/application.properties and configure:
+Before running the application, ensure you have:
 
-# Server
+- **Java 17** or higher installed
+- **Maven 3.6+** for dependency management
+- **MySQL 8.0+** database server
+- **Git** for version control
+- **Postman** or similar tool for API testing (optional)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Aymanhamad2002/shopping-app.git
+   cd shopping-app
+   ```
+
+2. **Create the database**
+   ```sql
+   CREATE DATABASE shoppingdb;
+   ```
+
+3. **Install dependencies**
+   ```bash
+   mvn clean install
+   ```
+
+### Configuration
+
+Configure the application by editing `src/main/resources/application.properties`:
+
+```properties
+# Server Configuration
 server.port=8080
 
 # Database Configuration
 spring.datasource.url=jdbc:mysql://localhost:3306/shoppingdb
 spring.datasource.username=root
 spring.datasource.password=yourpassword
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA/Hibernate Configuration
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 # JWT Configuration
-jwt.secret=YourSuperSecretKeyHere
-jwt.expiration=3600000  # 1 hour (in ms)
+jwt.secret=YourSuperSecretKeyMinimum256BitsLong
+jwt.expiration=3600000  # 1 hour in milliseconds
 
-# Other Settings
+# Application Settings
 spring.main.allow-circular-references=true
+```
 
+> ⚠️ **Security Note**: Never commit sensitive credentials to version control. Use environment variables or external configuration for production deployments.
 
-⚠️ Important: Never commit real passwords or JWT secrets in public repositories.
-Use environment variables or external configuration files for production.
+### Running the Application
 
-🧩 How It Works
-🟢 User Registration & Login
+**Option 1: Using Maven**
+```bash
+mvn spring-boot:run
+```
 
-Users can create an account via /api/auth/register
+**Option 2: Using Java**
+```bash
+mvn clean package
+java -jar target/shopping-app-0.0.1-SNAPSHOT.jar
+```
 
-Login via /api/auth/login to receive a JWT token.
+The application will start on `http://localhost:8080`
+
+---
+
+## 🔌 API Endpoints
+
+### Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | Login and receive JWT token |
+
+### Products
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | Get all products |
+| GET | `/api/products/{id}` | Get product by ID |
+| GET | `/api/products/category/{categoryId}` | Get products by category |
+| POST | `/api/products` | Create new product (Admin) |
+| PUT | `/api/products/{id}` | Update product (Admin) |
+| DELETE | `/api/products/{id}` | Delete product (Admin) |
+
+### Shopping Cart
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/cart` | Get current user's cart |
+| POST | `/api/cart/add` | Add item to cart |
+| PUT | `/api/cart/update/{id}` | Update cart item quantity |
+| DELETE | `/api/cart/remove/{id}` | Remove item from cart |
+| DELETE | `/api/cart/clear` | Clear entire cart |
+
+### Orders
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/orders/place` | Place a new order |
+| GET | `/api/orders/user/{userId}` | Get user's order history |
+| GET | `/api/orders/{orderId}` | Get specific order details |
+
+---
+
+## 💡 Usage Examples
+
+### 1. User Registration
+
+**Request:**
+```bash
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
 
 {
   "username": "john_doe",
-  "password": "123456"
+  "email": "john@example.com",
+  "password": "securePassword123"
 }
+```
 
+**Response:**
+```json
+{
+  "status": "success",
+  "message": "User registered successfully",
+  "data": {
+    "id": 1,
+    "username": "john_doe",
+    "email": "john@example.com"
+  }
+}
+```
 
-A successful login returns a JWT token that must be included in future requests:
+### 2. User Login
 
-Authorization: Bearer <your_token>
+**Request:**
+```bash
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
 
-🛍 Shopping Flow
+{
+  "username": "john_doe",
+  "password": "securePassword123"
+}
+```
 
-Browse products
-GET /api/products
+**Response:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "type": "Bearer",
+  "expiresIn": 3600000
+}
+```
 
-Add product to cart
-POST /api/cart/add
+### 3. Add Product to Cart (Protected)
 
-View cart items
-GET /api/cart
+**Request:**
+```bash
+POST http://localhost:8080/api/cart/add
+Authorization: Bearer <your_jwt_token>
+Content-Type: application/json
 
-Update or remove item from cart
-PUT /api/cart/update/{id} or DELETE /api/cart/remove/{id}
+{
+  "productId": 5,
+  "quantity": 2
+}
+```
 
-Place order
-POST /api/orders/place
+### 4. Place an Order (Protected)
 
-View order history
-GET /api/orders/user/{userId}
+**Request:**
+```bash
+POST http://localhost:8080/api/orders/place
+Authorization: Bearer <your_jwt_token>
+Content-Type: application/json
 
-▶️ Running the Application
-1️⃣ Clone the Repository
-git clone https://github.com/Aymanhamad2002/shopping-app.git
-cd shopping-app
+{
+  "shippingAddress": "123 Main St, City, Country",
+  "paymentMethod": "CREDIT_CARD"
+}
+```
 
-2️⃣ Build the Project
-mvn clean install
+---
 
-3️⃣ Run the Application
-mvn spring-boot:run
+## 🎓 Learning Goals
 
-4️⃣ Test Using Postman
+This project demonstrates:
 
-You can test all REST endpoints using Postman or cURL.
+- **RESTful API Design** - Building clean, scalable REST endpoints
+- **Spring Boot Architecture** - Layered application structure (Controller → Service → Repository)
+- **JWT Authentication** - Implementing stateless authentication
+- **Spring Security** - Securing endpoints with role-based access
+- **Spring Data JPA** - Database operations with minimal boilerplate
+- **DTO Pattern** - Separating domain models from API contracts
+- **Exception Handling** - Centralized error handling with meaningful responses
+- **Dependency Injection** - Leveraging Spring's IoC container
+- **Project Organization** - Modular, maintainable code structure
 
-🧠 Learning Goals
+---
 
-This project demonstrates how to:
+## 🔮 Future Enhancements
 
-Design a real-world REST API with Spring Boot.
+- [ ] Refresh token implementation for extended sessions
+- [ ] Payment gateway integration (Stripe, PayPal)
+- [ ] Product review and rating system
+- [ ] Email notifications for orders
+- [ ] Admin dashboard with analytics
+- [ ] Product search and filtering
+- [ ] Swagger/OpenAPI documentation
+- [ ] Unit and integration testing with JUnit 5
+- [ ] Docker containerization
+- [ ] CI/CD pipeline setup
+- [ ] Redis caching for improved performance
+- [ ] Wishlist functionality
 
-Implement JWT authentication and authorization.
+---
 
-Use Spring Data JPA for database management.
+## 🤝 Contributing
 
-Organize project modules for maintainability.
+Contributions are welcome and appreciated! To contribute:
 
-Build scalable, layered applications for e-commerce systems.
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
 
-🧰 Future Improvements
+Please ensure your code follows the existing style and includes appropriate tests.
 
- Add refresh token functionality
+---
 
- Add payment gateway integration
+## 📜 License
 
- Add product review and rating system
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
- Integrate Swagger/OpenAPI documentation
+You are free to use, modify, and distribute this software.
 
- Implement admin dashboard
+---
 
- Add unit and integration testing
+## 📧 Contact
 
-🤝 Contributing
+**Ayman Hamad**
 
-Contributions are welcome!
-To contribute:
+- GitHub: [@Aymanhamad2002](https://github.com/Aymanhamad2002)
+- Project Link: [https://github.com/Aymanhamad2002/shopping-app](https://github.com/Aymanhamad2002/shopping-app)
 
-Fork the repository
+For questions, suggestions, or issues, please open an issue on GitHub.
 
-Create a new feature branch
+---
 
-Commit your changes
+<div align="center">
 
-Submit a pull request
+### ⭐ If you found this project helpful, please give it a star!
 
-📜 License
+**Happy Coding! 🚀**
 
-This project is released under the MIT License.
-You are free to use, modify, and distribute it.
-
-✉️ Contact
-
-Author: Ayman Hamad
-
-📧 For questions or suggestions, open an issue
-.
-
-⭐ If you found this project helpful, please give it a star on GitHub!
+</div>
